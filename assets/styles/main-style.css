@@ -1,21 +1,97 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+/* SCSS RGB */
 * {
   margin: 0;
   padding: 0;
+  font-family: "Abril Fatface", cursive;
   box-sizing: border-box;
-  font-family: "Source Code Pro", monospace;
 }
 
 body {
+  background-color: #9e7682;
   width: 100vw;
   height: 100vh;
+  overflow: visible;
 }
 
-.center-box {
+main {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+main > * {
+  margin: 10px 0;
+}
+
+.quiz-container {
+  width: 750px;
+  height: calc(90% - 50px);
+  padding: 50px;
+  border-radius: 20px;
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  background-image: linear-gradient(135deg, #9e7682 0%, #605770 100%);
+  filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.25));
+  transition: all 1s ease;
+}
+
+.quiz-container:hover {
+  background-position: 100% 100%;
+}
+
+.quiz-container:hover .question, .quiz-container:hover .answers > * {
+  background: #4D4861;
+}
+
+.question, .answers, .answers span {
+  transition: all 1s ease;
+}
+
+.question {
+  background: #a17c88;
+  filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.2));
+  width: 100%;
+  height: 40%;
+  margin-bottom: 50px;
+  border-radius: 20px;
+}
+.question:hover {
+  background: #4D4861;
+}
+
+.answers {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.answers span {
+  background-color: #a17c88;
+  margin: 10px;
+  border-radius: 10px;
+  filter: brightness(1) drop-shadow(0 10px 10px rgba(0, 0, 0, 0.2));
+  transition-duration: 0.5s;
+}
+
+.answers span:hover {
+  transform: scale(1.05);
+  box-shadow: inset 350px 0 10px rgb(110, 94, 116);
+}
+
+.answers span:active {
+  transform: scale(0.95);
+}
+
+#timer {
   position: absolute;
-  top: calc(50% - 50px);
-  left: calc(50% - 50px);
-  width: 100px;
-  aspect-ratio: 1/1;
-  background-color: red;
+  top: 0;
+  left: 0;
 }/*# sourceMappingURL=main-style.css.map */
