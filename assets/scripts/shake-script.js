@@ -1,4 +1,4 @@
-function shake(amp, amt, len, selector) {
+export function shake(amp, amt, len, selector) {
     let index = len / amt
     let stagger = 0
     while (index <= len) {

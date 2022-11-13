@@ -21,7 +21,7 @@ body {
     background-color: $bg;
     width: 100vw;
     height: 100vh;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .quiz-container:hover body {
@@ -114,7 +114,6 @@ main > * {
 
 .quiz-container:hover .answers #answer {
     background-position: 100%;
-    font-size: 1rem;
 }
 
 .answers {
@@ -126,22 +125,45 @@ main > * {
     grid-template-rows: 1fr 1fr;
 }
 
-.answers #answer {
+#answer {
+    display: grid;
+    place-items: center;
     background-image: linear-gradient(to bottom right, $c2 0%, $c2 25%, rgb(110 94 116) 50%, $c3 75%);
     background-size: 400% 400%;
     margin: 10px;
     border-radius: 10px;
     filter: brightness(1) drop-shadow(0 10px 10px rgba(0, 0, 0, 0.2));
     transition: 0.5s;
+    color: $c2;
 }
 
-.answers #answer:hover {
+#answer:hover {
     transform: scale(1.05);
     filter: brightness(1.2) drop-shadow(0 10px 10px rgba(0, 0, 0, 0.2));
 }
 
-.answers #answer:active {
+#answer:active {
     transform: scale(0.95);
+}
+
+#answer::before {
+    content: attr(choice);
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    opacity: 0;
+    transform: translate(0%, -50%);
+    transition: 0.5s;
+    font-size: 3rem;
+    filter: blur(10px);
+    font-weight: 900;
+}
+
+#answer:hover::before {
+    opacity: 0.4;
+    filter: blur(0);
+    transform: translate(50%, -50%);
 }
 
 #timer {

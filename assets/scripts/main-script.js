@@ -1,11 +1,13 @@
+import { shake } from './shake-script.js'
+
 const quiz = [
     {
         'key': 'a',
-        'question': 'First letter of the alphabet',
-        'a': 'A',
-        'b': 'B',
-        'c': 'C',
-        'd': 'D'
+        'question': 'When was the first website created?',
+        'a': '1991',
+        'b': '1984',
+        'c': '1987',
+        'd': '1993'
     },{
         'key': 'b',
         'question': 'Second letter of the alphabet',
@@ -32,31 +34,29 @@ const quiz = [
 
 let questionNumber = 1
 
-const answers = document.querySelectorAll('#answer')
-
 function updateQuestion() {
-    document.getElementById('question-text').textContent = quiz[questionNumber - 1].question
+    document.getElementById('question-text').textContent = quiz[questionNumber - 1].question // update question text
     document.querySelectorAll('#answer').forEach(e => {
-        e.textContent = quiz[questionNumber - 1][`${e.getAttribute('choice')}`]
-        if (quiz[questionNumber - 1].key === e.getAttribute('choice')) {
+        e.textContent = quiz[questionNumber - 1][`${e.getAttribute('choice')}`] // update answers
+        if (quiz[questionNumber - 1].key === e.getAttribute('choice')) {  // toggle true and false answer classes
             e.classList.toggle('true-answer', true)
             e.classList.toggle('false-answer', false)
         } else {
             e.classList.toggle('false-answer', true)
             e.classList.toggle('true-answer', false)
         }
-        e.addEventListener('click', () => {
-            if (e.classList.value == 'true-answer') {
-                console.log('correct answer')
-                questionNumber++
-                updateQuestion()
-            } else {
-                console.log('wronge answer')
-            }
-        })
     })
+    questionNumber++
 }
 
+function wrongeAnswer() {
+    shake(1, 20, 0.2, 'body')
+}
 
+document.querySelectorAll('#answer').forEach(e => { // add click functions for the answers
+    e.addEventListener('click', () => {
+        (e.classList.value === 'true-answer') ? updateQuestion() : wrongeAnswer()
+    })
+})
 
 updateQuestion()
