@@ -1,3 +1,4 @@
+import { confetti } from './confetti-script.js'
 import { shake } from './shake-script.js'
 
 const quiz = [
@@ -53,10 +54,13 @@ function wrongeAnswer() {
     shake(1, 20, 0.2, 'body')
 }
 
+function rightAnswer() {
+    updateQuestion()
+    confetti()
+}
+
 document.querySelectorAll('#answer').forEach(e => { // add click functions for the answers
     e.addEventListener('click', () => {
-        (e.classList.value === 'true-answer') ? updateQuestion() : wrongeAnswer()
+        (e.classList.contains('true-answer')) ? rightAnswer() : wrongeAnswer()
     })
 })
-
-updateQuestion()
