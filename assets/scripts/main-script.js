@@ -60,14 +60,21 @@ function updateQuestion() {
 
 document.querySelectorAll('#answer').forEach(e => { // add click functions for the answers
     e.addEventListener('click', () => {
-        (e.classList.contains('true-answer')) ? rightAnswer() : wrongeAnswer() // run function depending on the answer that was clicked
+        if (e.classList.contains('true-answer')) {
+            rightAnswer() // run function depending on the answer that was clicked
+            e.classList.toggle('true-answer', false) // makes sure nobody is able to add seconds multiple times with the same answer
+        }    
+        if (e.classList.contains('false-answer')) {
+            wrongeAnswer() // run function depending on the answer that was clicked
+            e.classList.toggle('false-answer', false) // makes sure nobody is able to remove seconds multiple times with the same answer
+        } 
     })
 })
 
 function wrongeAnswer() {
     gsap.fromTo('#timer', {duration: 0.3, ease: Power1.easeIn, color: 'rgba(255, 0, 0, 0.5)'}, {color: 'rgba(255, 255, 255, 0.5'})
     gsap.fromTo('.answer-flash', {backgroundColor: 'red', opacity: 0.3}, {duration: 0.3, ease: Power1.easeIn, opacity: 0})
-    shake(1, 20, 0.2, 'main')
+    shake(1, 20, 0.2, 'body')
     amountWrongeAnswers++
 }
 
@@ -112,16 +119,21 @@ function startTimer() {
 
 function endQuiz() {
     console.log(amountRightAnswers)
-    if (amountRightAnswers + 1 == quiz.length) {
+    console.log(amountRightAnswers)
+    console.log(quiz.length)
+    if (amountRightAnswers == quiz.length) {
         confetti()
+        let quizCompletedAnimation = gsap.timeline()
+        quizCompletedAnimation.to('.result-container', {duration: 1, ease: Bounce.easeOut, scale: 1, filter: 'blur(0px) drop-shadow(0 0 20px rgba(0, 0, 0, 0.3))', y: '-50%', top: '50%'})
+        document.getElementById('amount-correct').textContent = `${amountRightAnswers + 1} / ${quiz.length} CORRECT!`
     } else {
         let timerRunOutAnimation = gsap.timeline() 
+        document.getElementById('amount-correct').textContent = `${amountRightAnswers} / ${quiz.length} CORRECT!`        
         timerRunOutAnimation.to('main', {duration: 1, ease: 'Power2.easeIn', scale: 0.8, filter: 'blur(5px)'})
         timerRunOutAnimation.to('main', {duration: 1, ease: 'Power2.easeIn', x: '-100%', scale: 0.9, filter: 'blur(5px)'}, '<0.7')
         timerRunOutAnimation.set('main', {opacity: 0})
         timerRunOutAnimation.to('.result-container', {duration: 1, ease: Bounce.easeOut, scale: 1, filter: 'blur(0px) drop-shadow(0 0 20px rgba(0, 0, 0, 0.3))', y: '-50%', top: '50%'})
     }
-    // let endQuizAnimation = gsap.timeline()
 }
 
 function startQuiz() {
