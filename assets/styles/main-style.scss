@@ -61,10 +61,6 @@ main {
 
 // question
 
-main > * {
-    margin: 10px 0;
-}
-
 .quiz-container {
     display: flex;
     flex-direction: column;
@@ -181,9 +177,72 @@ main > * {
 
 #timer {
     font-family: 'Source Code Pro', monospace;
-    color: rgba(255, 255, 255, 0.5);
+    color: $c1;
+    opacity: 0.8;
     font-size: 3rem;
     font-weight: 600;
 }
+
+.result-container {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -100%) scale(0.8);
+    background-image: linear-gradient(to bottom right, $c2 0%, rgb(110 94 116) 100%);
+    background-size: 400%;
+    border-radius: 30px;
+    padding: 25px 50px;
+    filter: blur(10px) drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
+}
+
+.result-container > * {
+    margin: 10px 0;
+}
+
+#result {
+    font-size: 4.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: $c1;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
+}
+
+.result-container button {
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: none;
+    background-color: $c2;
+    color: $c1;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
+}
+
+#restart-button {
+    font-size: 2rem;
+}
+
+#past-scores-button {
+    font-size: 1rem;
+}
+// .times-up-container {
+//     position: absolute;
+//     display: grid;
+//     place-items: center;
+//     width: 100vw;
+//     height: 100vh;
+//     top: 0;
+//     left: 0;
+//     pointer-events: none;
+
+// }
+
+// #times-up {
+//     color: $cr;
+//     font-size: 15rem;
+//     font-weight: 600;
+// }
 
 // media queries
