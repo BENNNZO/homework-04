@@ -7,11 +7,14 @@
 
     <link rel="stylesheet" href="./assets/styles/main-style.css" />
 
-    <!-- TsParticles Library -->
-    <!-- <script 
-        src="https://cdnjs.cloudflare.com/ajax/libs/tsparticles/2.5.3/tsparticles.min.js"
+    <!-- GSAP 3 Library -->
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"
         defer
-    ></script> -->
+    ></script>
+
+
+    <!-- TsParticles Library -->
     <script 
         src="https://cdn.jsdelivr.net/npm/tsparticles@2.5.3/tsparticles.bundle.min.js" 
         defer
@@ -27,7 +30,7 @@
     <title>Document</title>
   </head>
   <body>
-    <div id="tsparticles"></div>
+    <div id="tsparticles-confetti"></div>
     <div class="answer-animation-container">
       <div class="answer-animation-bg"></div>
     </div>
@@ -38,8 +41,8 @@
     <main>
       <div class="quiz-container">
         <section class="question">
-          <h2 id="question-number"></h2>
-          <p id="question-text"></p>
+          <h2 id="question-number" class="unselectable"></h2>
+          <p id="question-text" class="unselectable"></p>
         </section>
         <section class="answers">
           <p id="answer" choice="a" class="unselectable"></p>

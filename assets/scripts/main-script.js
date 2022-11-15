@@ -55,8 +55,13 @@ function wrongeAnswer() {
 }
 
 function rightAnswer() {
-    updateQuestion()
-    confetti()
+    let questionUpdateAnimation = gsap.timeline()
+    questionUpdateAnimation.to('main', {duration: 1, ease: 'Power2.easeIn', scale: 0.8, filter: 'blur(5px)'})
+    questionUpdateAnimation.to('main', {duration: 1, ease: 'Power2.easeIn', x: '-100%', scale: 0.9, filter: 'blur(5px)'}, '<0.7')
+    questionUpdateAnimation.set('main', {x: '100%', onComplete: () => updateQuestion()})
+    questionUpdateAnimation.to('main', {duration: 1, ease: 'Power3.easeOut', x: 0})
+    questionUpdateAnimation.to('main', {scale: 1, filter: 'blur(0px)', duration: 1, ease: 'Power2.easeOut'}, '<0.3')
+    // confetti()
 }
 
 document.querySelectorAll('#answer').forEach(e => { // add click functions for the answers
@@ -64,3 +69,5 @@ document.querySelectorAll('#answer').forEach(e => { // add click functions for t
         (e.classList.contains('true-answer')) ? rightAnswer() : wrongeAnswer()
     })
 })
+
+updateQuestion()

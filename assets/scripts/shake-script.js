@@ -19,3 +19,6 @@ export function shake(amp, amt, len, selector) {
         })
     }, len * 1000)
 }
+
+// Author: Benjamin Phillips
+// Github: https://github.com/bennnzo
