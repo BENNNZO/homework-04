@@ -78,7 +78,8 @@ function wrongeAnswer() {
     amountWrongeAnswers++
 }
 
-function rightAnswer() { 
+function rightAnswer() {
+    amountRightAnswers++
     console.log(amountRightAnswers)
     let questionUpdateAnimation = gsap.timeline()
 
@@ -95,7 +96,6 @@ function rightAnswer() {
     } else {
         updateQuestion()
     }
-    amountRightAnswers++
 }
 
 function startTimer() {
@@ -125,7 +125,7 @@ function endQuiz() {
         confetti()
         let quizCompletedAnimation = gsap.timeline()
         quizCompletedAnimation.to('.result-container', {duration: 1, ease: Bounce.easeOut, scale: 1, filter: 'blur(0px) drop-shadow(0 0 20px rgba(0, 0, 0, 0.3))', y: '-50%', top: '50%'})
-        document.getElementById('amount-correct').textContent = `${amountRightAnswers + 1} / ${quiz.length} CORRECT!`
+        document.getElementById('amount-correct').textContent = `${amountRightAnswers} / ${quiz.length} CORRECT!`
     } else {
         let timerRunOutAnimation = gsap.timeline() 
         document.getElementById('amount-correct').textContent = `${amountRightAnswers} / ${quiz.length} CORRECT!`        
