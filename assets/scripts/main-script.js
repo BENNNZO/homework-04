@@ -54,8 +54,8 @@ function updateQuestion() {
                 e.classList.toggle('true-answer', false)
             }
         })
+        questionNumber++
     }
-    questionNumber++
 }
 
 document.querySelectorAll('#answer').forEach(e => { // add click functions for the answers
@@ -71,20 +71,20 @@ document.querySelectorAll('#answer').forEach(e => { // add click functions for t
     })
 })
 
-function wrongeAnswer() {
-    gsap.fromTo('#timer', {duration: 0.3, ease: Power1.easeIn, color: 'rgba(255, 0, 0, 0.5)'}, {color: 'rgba(255, 255, 255, 0.5'})
+function wrongeAnswer() {  // execute on wronge answer click
+    gsap.fromTo('#timer', {duration: 0.3, ease: Power1.easeIn, color: 'rgba(255, 0, 0, 0.5)'}, {color: '#f7c4a5'})
     gsap.fromTo('.answer-flash', {backgroundColor: 'red', opacity: 0.3}, {duration: 0.3, ease: Power1.easeIn, opacity: 0})
     shake(1, 20, 0.2, 'body')
     amountWrongeAnswers++
 }
 
-function rightAnswer() {
+function rightAnswer() {  // execute on right answer click
     amountRightAnswers++
     console.log(amountRightAnswers)
     let questionUpdateAnimation = gsap.timeline()
 
-    gsap.fromTo ('#timer', {duration: 0.3, ease: Power1.easeIn, color: 'rgba(0, 255, 0, 0.5)'}, {color: 'rgba(255, 255, 255, 0.5'})
-    gsap.fromTo('.answer-flash', {backgroundColor: 'green', opacity: 0.3}, {duration: 0.6, ease: Power1.easeIn, opacity: 0})
+    gsap.fromTo ('#timer', {duration: 0.3, ease: Power1.easeIn, color: 'rgba(0, 255, 0, 0.5)'}, {color: '#f7c4a5'}) // timer flashes green
+    gsap.fromTo('.answer-flash', {backgroundColor: 'limegreen', opacity: 0.3}, {duration: 0.4, ease: Power1.easeIn, opacity: 0}) // screen flashes green
     questionUpdateAnimation.to('main', {duration: 1, ease: 'Power2.easeIn', scale: 0.8, filter: 'blur(5px)'})
     questionUpdateAnimation.to('main', {duration: 1, ease: 'Power2.easeIn', x: '-100%', scale: 0.9, filter: 'blur(5px)'}, '<0.7')
     questionUpdateAnimation.set('main', {opacity: 0}) // for some reason this makes it way smoother
@@ -103,7 +103,7 @@ function startTimer() {
     
     let timer = setInterval(function() {
         let delta = Date.now() - deltaStart // milliseconds since timer was started
-        let timeRemaining = 1000 - (Math.floor(delta / 100)) - (amountWrongeAnswers * 50) + (amountRightAnswers * 100)
+        let timeRemaining = 50 - (Math.floor(delta / 100)) - (amountWrongeAnswers * 50) + (amountRightAnswers * 100)
         if (Number.isInteger(timeRemaining / 10)) {
             (document.getElementById('timer').textContent = `${timeRemaining / 10}.0`)
         } else {
@@ -118,9 +118,6 @@ function startTimer() {
 }
 
 function endQuiz() {
-    console.log(amountRightAnswers)
-    console.log(amountRightAnswers)
-    console.log(quiz.length)
     if (amountRightAnswers == quiz.length) {
         confetti()
         let quizCompletedAnimation = gsap.timeline()
@@ -130,15 +127,26 @@ function endQuiz() {
         let timerRunOutAnimation = gsap.timeline() 
         document.getElementById('amount-correct').textContent = `${amountRightAnswers} / ${quiz.length} CORRECT!`        
         timerRunOutAnimation.to('main', {duration: 1, ease: 'Power2.easeIn', scale: 0.8, filter: 'blur(5px)'})
-        timerRunOutAnimation.to('main', {duration: 1, ease: 'Power2.easeIn', x: '-100%', scale: 0.9, filter: 'blur(5px)'}, '<0.7')
+        timerRunOutAnimation.to('main', {duration: 1, ease: 'Power2.easeIn', y: '100%'}, '<0.2')
         timerRunOutAnimation.set('main', {opacity: 0})
         timerRunOutAnimation.to('.result-container', {duration: 1, ease: Bounce.easeOut, scale: 1, filter: 'blur(0px) drop-shadow(0 0 20px rgba(0, 0, 0, 0.3))', y: '-50%', top: '50%'})
     }
+    questionNumber = 1
+    amountRightAnswers = 0
+    amountWrongeAnswers = 0
 }
 
 function startQuiz() {
     startTimer()
     updateQuestion()
+    gsap.set('main', {y: '-100%'})
+    gsap.to('main', {duration: 1, ease: Bounce.easeOut, y: 0})
+    gsap.to('.result-container', {duration: 1, ease: Power3.easeIn, scale: 0.8, filter: 'blur(5px) drop-shadow(0 0 20px rgba(0, 0, 0, 0.3))', y: '-100%', top: '0%'})
+    gsap.set('main', {x: '100%', onComplete: () => updateQuestion()}) // this just sets the questions location to the right side of the screen
+    gsap.to('main', {duration: 1, ease: 'Power3.easeOut', x: 0})
+    gsap.to('main', {scale: 1, filter: 'blur(0px)', duration: 1, ease: 'Power2.easeOut'}, '<0.3')
 }
+
+document.getElementById('restart-button').addEventListener('click', () => startQuiz())
 
 startQuiz()

@@ -57,6 +57,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transform: translateY(-100%)
 }
 
 // question
@@ -237,22 +238,3 @@ main {
 #past-scores-button {
     font-size: 1rem;
 }
-// .times-up-container {
-//     position: absolute;
-//     display: grid;
-//     place-items: center;
-//     width: 100vw;
-//     height: 100vh;
-//     top: 0;
-//     left: 0;
-//     pointer-events: none;
-
-// }
-
-// #times-up {
-//     color: $cr;
-//     font-size: 15rem;
-//     font-weight: 600;
-// }
-
-// media queries
