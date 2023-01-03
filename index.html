@@ -32,6 +32,23 @@
   <body>
     <div id="tsparticles-confetti"></div>
     <div class="answer-flash"></div>
+    <div class="start-container">
+      <button class="start-button" id="start-button">START QUIZ!</button>
+      <section class="start-information-container">
+        <ul>
+          <li>CORRECT ANSWER = +10s</li>
+          <li>WRONGE ANSWER = -5s</li>
+        </ul>
+      </section>
+      <div class="section-line"></div>
+      <h2>COMPUTER SPEED</h2>
+      <div class="computer-speed-selection">
+        <p class="unselectable" id="computer-speed" data-speed="slow">SLOW</p>
+        <p class="unselectable" id="computer-speed" data-speed="average">AVERAGE</p>
+        <p class="unselectable" id="computer-speed" data-speed="fast">FAST</p>
+        <div id="animated-selection"></div>
+      </div>
+    </div>
     <main>
       <div class="quiz-container">
         <section class="timer-container"> 
@@ -50,10 +67,12 @@
       </div>
     </main>
     <div class="result-container">
-        <p id="result" class="unselectable">TIME'S UP!</p>
-        <p id="amount-correct">10 / 10 correct</p>
+        <p id="result" class="unselectable"></p>
+        <p id="amount-correct" class="unselectable"></p>
         <button id="restart-button" class="unselectable">RESTART</button>
         <button id="past-scores-button" class="unselectable">PAST SCORES</button>
+    </div>
+    <div class="past-scores-container">
     </div>
   </body>
 </html>
